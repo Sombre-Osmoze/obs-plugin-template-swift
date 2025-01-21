@@ -16,23 +16,40 @@ let package = Package(
 
             targets: ["plugin-starter"]),
     ],
+    dependencies: [
+        // Dependencies declare other packages that this package depends on.
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
-        // .target(
-        //     name: "OBS"),
-
-        .systemLibrary(
+        // .systemLibrary(
+        //     name: "OBS",
+        //     pkgConfig: "obs",
+        //     providers: [
+        //         .apt(["libobs-dev"]),
+        //         .brew(["obs"]),
+        //     ]
+        // ),
+        .target(
             name: "OBS",
-            // path: "/usr/local/lib",
-            providers: []
+            swiftSettings: [
+                .interoperabilityMode(.Cxx)
+            ],
+            linkerSettings: [.linkedLibrary("/usr/lib/libobs.so")]
+            // cxxSettings: [.headerSearchPath("/usr/include/obs")]
         ),
         .target(
             name: "plugin-starter",
             dependencies: ["OBS"],
-            swiftSettings: [.interoperabilityMode(.Cxx), .unsafeFlags(["-Xcc", "-I/usr/include/obs"])],
-            linkerSettings: [.linkedLibrary("/usr/lib/libobs.so")]
-            
+            swiftSettings: [
+                .interoperabilityMode(.Cxx)
+                //                 .unsafeFlags(["-Xcc", "-L/usr/include/obs"]),
+            ],
+            linkerSettings: [
+                .linkedLibrary("/usr/lib/libobs.so")
+                //                                 .unsafeFlags(["-Wl"]),
+            ]
+
         ),
         // .testTarget(
         //     name: "plugin-starterTests",
