@@ -35,7 +35,7 @@ let package = Package(
             swiftSettings: [
                 .interoperabilityMode(.Cxx)
             ],
-            linkerSettings: [.linkedLibrary("/usr/lib/libobs.so")]
+            linkerSettings: [.linkedLibrary("obs")]
             // cxxSettings: [.headerSearchPath("/usr/include/obs")]
         ),
         .target(
@@ -46,7 +46,7 @@ let package = Package(
                 //                 .unsafeFlags(["-Xcc", "-L/usr/include/obs"]),
             ],
             linkerSettings: [
-                .linkedLibrary("/usr/lib/libobs.so")
+                .linkedLibrary("obs")
                 //                                 .unsafeFlags(["-Wl"]),
             ]
 
